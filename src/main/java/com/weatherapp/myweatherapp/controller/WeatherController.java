@@ -35,6 +35,12 @@ public class WeatherController {
 
  @GetMapping("/compare-daylight")
     public ResponseEntity<String> compareDaylightHours(@RequestParam String city1, @RequestParam String city2) {
+
+      // Validate city names
+        if (city1 == null || city2 == null || city1.isBlank() || city2.isBlank()) {
+            return ResponseEntity.badRequest().body("Invalid city names provided.");
+        }
+        
     try {
         CityInfo cityInfo1 = weatherService.forecastByCity(city1);
         CityInfo cityInfo2 = weatherService.forecastByCity(city2);

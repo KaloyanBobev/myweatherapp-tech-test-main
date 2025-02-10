@@ -16,43 +16,50 @@ public class WeatherService {
   VisualcrossingRepository weatherRepo;
 
   public CityInfo forecastByCity(String city) {
+    CityInfo cityInfo = weatherRepo.getByCity(city);
+    
+    if (cityInfo == null) {
+        throw new IllegalArgumentException("Weather data not found for city: " + city);
+    }
 
-    return weatherRepo.getByCity(city);
-  }
+    return cityInfo;
+}
 
   /**
    * Calculates the daylight hours for the given city.
    * @param city The name of the city.
    * @return The number of daylight hours.
    */
-  public long calculateDaylightHours(CityInfo cityInfo) {
-    
-
-if (cityInfo == null || cityInfo.getSunrise() == null || cityInfo.getSunset() == null) {
-    throw new IllegalArgumentException("Missing or invalid sunrise/sunset data for city: " + (cityInfo != null ? cityInfo.getCityName() : "Unknown"));
-}
-
+ public long calculateDaylightHours(CityInfo cityInfo) {
+    if (cityInfo == null || cityInfo.getSunrise() == null || cityInfo.getSunset() == null) {
+        throw new IllegalArgumentException("Missing or invalid sunrise/sunset data for city: " + 
+            (cityInfo != null ? cityInfo.getCityName() : "Unknown"));
+    }
 
     LocalTime sunrise = cityInfo.getSunrise();
     LocalTime sunset = cityInfo.getSunset();
 
+    // Handle cases where sunset happens before sunrise (edge case)
+    if (sunset.isBefore(sunrise)) {
+        throw new IllegalArgumentException("Invalid sunrise/sunset data for city: " + cityInfo.getCityName());
+    }
+
     Duration daylightDuration = Duration.between(sunrise, sunset);
     return daylightDuration.toHours();
-  }
-
+}
   /**
    * Checks if the given city is currently experiencing rain.
    * @param city The name of the city.
    * @return true if it's raining, false otherwise.
    */
   public boolean isRaining(CityInfo cityInfo) {
-   
-
     if (cityInfo == null || cityInfo.getWeather() == null) {
-    throw new IllegalArgumentException("Missing or invalid weather data for city: " + (cityInfo != null ? cityInfo.getCityName() : "Unknown"));
+        throw new IllegalArgumentException("Missing or invalid weather data for city: " + 
+            (cityInfo != null ? cityInfo.getCityName() : "Unknown"));
+    }
+
+    // Convert weather description to lowercase to avoid case sensitivity issues
+    return cityInfo.getWeather().toLowerCase().contains("rain");
 }
 
-    // Check for rain in the weather data (you can adjust this based on the actual data structure)
-    return cityInfo.getWeather().contains("rain");
-  }
 }

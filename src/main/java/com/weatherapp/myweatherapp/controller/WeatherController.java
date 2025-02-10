@@ -10,11 +10,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @RestController
 public class WeatherController {
 
   @Autowired
   WeatherService weatherService;
+
+  private static final Logger logger = LoggerFactory.getLogger(WeatherController.class);
 
   @GetMapping("/")
   public ResponseEntity<String> home() {
@@ -42,6 +47,7 @@ public class WeatherController {
         }
         
     try {
+        logger.info("Comparing daylight hours for {} and {}", city1, city2);
         CityInfo cityInfo1 = weatherService.forecastByCity(city1);
         CityInfo cityInfo2 = weatherService.forecastByCity(city2);
 

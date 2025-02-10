@@ -11,7 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+
 import static org.mockito.Mockito.when;
 
 public class WeatherServiceTest {

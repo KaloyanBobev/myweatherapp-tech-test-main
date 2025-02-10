@@ -2,34 +2,34 @@ package com.weatherapp.myweatherapp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import java.util.List;
 import java.time.LocalTime;
+import java.util.List;
 
 public class CityInfo {
 
-  private String cityName;
+    private String cityName;
 
-  @JsonFormat(pattern = "HH:mm:ss")
-  private LocalTime sunrise;
-    
-  @JsonFormat(pattern = "HH:mm:ss")
-  private LocalTime sunset;
+    @JsonFormat(pattern = "HH:mm:ss")
+    private LocalTime sunrise;
 
-  private String weather;
+    @JsonFormat(pattern = "HH:mm:ss")
+    private LocalTime sunset;
 
-  @JsonProperty("address")
-  String address;
+    private String weather;
 
-  @JsonProperty("description")
-  String description;
+    @JsonProperty("address")
+    private String address;
 
-  @JsonProperty("currentConditions")
-  CurrentConditions currentConditions;
+    @JsonProperty("description")
+    private String description;
 
-  @JsonProperty("days")
-  List<Days> days;
+    @JsonProperty("currentConditions")
+    private CurrentConditions currentConditions;
 
- // Constructor
+    @JsonProperty("days")
+    private List<Days> days;
+
+    // Constructor
     public CityInfo(String cityName, LocalTime sunrise, LocalTime sunset, String weather) {
         this.cityName = cityName;
         this.sunrise = sunrise;
@@ -37,7 +37,7 @@ public class CityInfo {
         this.weather = weather;
     }
 
-// Getters and Setters
+    // Getters and Setters
     public String getCityName() {
         return cityName;
     }
@@ -70,46 +70,185 @@ public class CityInfo {
         this.weather = weather;
     }
 
+    public CurrentConditions getCurrentConditions() {
+        return currentConditions;
+    }
 
-  static class CurrentConditions {
-    @JsonProperty("temp")
-    String currentTemperature;
+    public void setCurrentConditions(CurrentConditions currentConditions) {
+        this.currentConditions = currentConditions;
+    }
 
-    @JsonProperty("sunrise")
-    String sunrise;
+    public List<Days> getDays() {
+        return days;
+    }
 
-    @JsonProperty("sunset")
-    String sunset;
+    public void setDays(List<Days> days) {
+        this.days = days;
+    }
 
-    @JsonProperty("feelslike")
-    String feelslike;
+    public String getAddress() {
+        return address;
+    }
 
-    @JsonProperty("humidity")
-    String humidity;
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-    @JsonProperty("conditions")
-    String conditions;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  static class Days {
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-    @JsonProperty("datetime")
-    String date;
+    // Inner class: Current Conditions
+    public static class CurrentConditions {
 
-    @JsonProperty("temp")
-    String currentTemperature;
+        @JsonProperty("temp")
+        private String currentTemperature;
 
-    @JsonProperty("tempmax")
-    String maxTemperature;
+        @JsonProperty("sunrise")
+        @JsonFormat(pattern = "HH:mm:ss")
+        private LocalTime sunrise;
 
-    @JsonProperty("tempmin")
-    String minTemperature;
+        @JsonProperty("sunset")
+        @JsonFormat(pattern = "HH:mm:ss")
+        private LocalTime sunset;
 
-    @JsonProperty("conditions")
-    String conditions;
+        @JsonProperty("feelslike")
+        private String feelslike;
 
-    @JsonProperty("description")
-    String description;
+        @JsonProperty("humidity")
+        private String humidity;
 
-  }
+        @JsonProperty("conditions")
+        private String conditions;
+
+        // Constructor
+        public CurrentConditions() {}
+
+        // Getters and Setters
+        public String getCurrentTemperature() {
+            return currentTemperature;
+        }
+
+        public void setCurrentTemperature(String currentTemperature) {
+            this.currentTemperature = currentTemperature;
+        }
+
+        public LocalTime getSunrise() {
+            return sunrise;
+        }
+
+        public void setSunrise(LocalTime sunrise) {
+            this.sunrise = sunrise;
+        }
+
+        public LocalTime getSunset() {
+            return sunset;
+        }
+
+        public void setSunset(LocalTime sunset) {
+            this.sunset = sunset;
+        }
+
+        public String getFeelslike() {
+            return feelslike;
+        }
+
+        public void setFeelslike(String feelslike) {
+            this.feelslike = feelslike;
+        }
+
+        public String getHumidity() {
+            return humidity;
+        }
+
+        public void setHumidity(String humidity) {
+            this.humidity = humidity;
+        }
+
+        public String getConditions() {
+            return conditions;
+        }
+
+        public void setConditions(String conditions) {
+            this.conditions = conditions;
+        }
+    }
+
+    // Inner class: Days
+    public static class Days {
+
+        @JsonProperty("datetime")
+        private String date;
+
+        @JsonProperty("temp")
+        private String currentTemperature;
+
+        @JsonProperty("tempmax")
+        private String maxTemperature;
+
+        @JsonProperty("tempmin")
+        private String minTemperature;
+
+        @JsonProperty("conditions")
+        private String conditions;
+
+        @JsonProperty("description")
+        private String description;
+
+        // Constructor
+        public Days() {}
+
+        // Getters and Setters
+        public String getDate() {
+            return date;
+        }
+
+        public void setDate(String date) {
+            this.date = date;
+        }
+
+        public String getCurrentTemperature() {
+            return currentTemperature;
+        }
+
+        public void setCurrentTemperature(String currentTemperature) {
+            this.currentTemperature = currentTemperature;
+        }
+
+        public String getMaxTemperature() {
+            return maxTemperature;
+        }
+
+        public void setMaxTemperature(String maxTemperature) {
+            this.maxTemperature = maxTemperature;
+        }
+
+        public String getMinTemperature() {
+            return minTemperature;
+        }
+
+        public void setMinTemperature(String minTemperature) {
+            this.minTemperature = minTemperature;
+        }
+
+        public String getConditions() {
+            return conditions;
+        }
+
+        public void setConditions(String conditions) {
+            this.conditions = conditions;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public void setDescription(String description) {
+            this.description = description;
+        }
+    }
 }

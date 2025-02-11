@@ -1,0 +1,96 @@
+# Weather App API Documentation
+
+## Overview
+The Weather App is a Spring Boot-based REST API that provides weather forecasts, daylight comparison between cities, and rain status checks. The application integrates with the Visual Crossing Weather API to fetch real-time weather data.
+
+## Prerequisites
+Before running the application, ensure you have the following installed:
+- Java 17
+- Maven 3.6.3+
+- A valid API key for Visual Crossing Weather API
+
+## Setup Instructions
+1. Clone the repository:
+   ```sh
+   git clone <repository-url>
+   cd weather-app
+   ```
+2. Configure API key in `application.properties`:
+   ```properties
+   weather.api.key=YOUR_API_KEY
+   ```
+3. Build and run the application:
+   ```sh
+   mvn clean install
+   mvn spring-boot:run
+   ```
+
+## API Endpoints
+
+### 1. Home Endpoint
+**URL:** `/`
+**Method:** `GET`
+**Description:** Returns a welcome message with available API features.
+
+### 2. Get Weather Forecast
+**URL:** `/forecast/{cityName}`
+**Method:** `GET`
+**Description:** Fetches the weather forecast for a given city.
+**Path Parameter:**
+- `cityName` (String) – Name of the city.
+
+**Response:**
+- `200 OK` – Returns weather details in JSON format.
+- `400 Bad Request` – If an invalid city name is provided.
+- `500 Internal Server Error` – If an unexpected error occurs.
+
+### 3. Compare Daylight Hours
+**URL:** `/compare-daylight`
+**Method:** `GET`
+**Description:** Compares daylight hours between two cities and returns the city with the longest daylight.
+**Query Parameters:**
+- `firstCity` (String) – First city name.
+- `secondCity` (String) – Second city name.
+
+**Response:**
+- `200 OK` – Returns the city with the longest daylight hours.
+- `400 Bad Request` – If city names are missing or invalid.
+- `500 Internal Server Error` – If an unexpected error occurs.
+
+### 4. Check Rain Status
+**URL:** `/check-rain`
+**Method:** `GET`
+**Description:** Checks which of the two provided cities is currently experiencing rain.
+**Query Parameters:**
+- `firstCity` (String) – First city name.
+- `secondCity` (String) – Second city name.
+
+**Response:**
+- `200 OK` – Returns whether it is raining in one or both cities.
+- `400 Bad Request` – If city names are missing or invalid.
+- `500 Internal Server Error` – If an unexpected error occurs.
+
+## Error Handling
+The application includes exception handling for the following scenarios:
+- **Invalid City Name:** Returns a `400 Bad Request` with an appropriate message.
+- **External API Errors:** Returns a `500 Internal Server Error` when the weather API fails.
+- **Unexpected Errors:** Returns a `500 Internal Server Error` for unknown issues.
+
+## Logging
+The application uses SLF4J with Logback for logging API requests and errors. Logs include request parameters, fetched weather data, and any encountered errors.
+
+## Testing
+Unit and integration tests are implemented to verify API functionality.
+Run tests using:
+```sh
+mvn test
+```
+
+## Future Enhancements
+- Support for more weather parameters like humidity and wind speed.
+- Caching mechanism to reduce external API calls.
+- Support for multiple weather APIs for redundancy.
+
+## Contact
+For any questions or issues, please contact [Your Name] at [your-email@example.com].
+
